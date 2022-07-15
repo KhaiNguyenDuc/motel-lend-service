@@ -22,7 +22,7 @@ public class Description {
 	private String content;
 
 	@ManyToOne
-	@JoinColumn(name = "info_id", nullable = false)
+	@JoinColumn(name = "info_id")
 	@JsonIgnore
 	private Info info;
 	
@@ -46,6 +46,10 @@ public class Description {
 		this.content = content;
 	}
 
+	public Description() {
+
+	}
+	
 	public Description(String content) {
 		super();
 		this.content = content;

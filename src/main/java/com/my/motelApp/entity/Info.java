@@ -129,6 +129,12 @@ public class Info {
 		this.maylanh = maylanh;
 		this.rac = rac;
 	}
+	
+	
+	public Info() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toString() {

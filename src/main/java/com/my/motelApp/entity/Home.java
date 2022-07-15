@@ -109,6 +109,10 @@ public class Home {
 	public void setInfo(Info info) {
 		this.info = info;
 	}
+	
+	public Home() {
+		super();
+	}
 
 	public Home(String address, String map, float distance, String name_chu, boolean state, Info info) {
 		super();

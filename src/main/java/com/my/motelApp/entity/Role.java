@@ -42,6 +42,13 @@ public class Role {
 		return "Role [id=" + id + ", name=" + name + "]";
 	}
 
+	
+	
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Role(String name) {
 		super();
 		this.name = name;

@@ -38,6 +38,11 @@ public class Image {
 		this.link = link;
 	}
 
+	public Image() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Image(String link) {
 		super();
 		this.link = link;

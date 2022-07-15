@@ -48,6 +48,12 @@ public class Ward {
 		super();
 		this.name = name;
 	}
+
+	public Ward() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 	
 }

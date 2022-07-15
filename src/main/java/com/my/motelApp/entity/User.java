@@ -94,9 +94,14 @@ public class User {
 	public Set<Role> getRoles() {
 		return roles;
 	}
-
+	
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	
