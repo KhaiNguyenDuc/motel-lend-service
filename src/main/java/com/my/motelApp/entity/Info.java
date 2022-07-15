@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Info {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@JsonIgnore
 	private long id;
 	
 	@Column(name = "giaphong")
@@ -54,6 +55,19 @@ public class Info {
 	public long getId() {
 		return id;
 	}
+
+	
+	public Home getHome() {
+		return home;
+	}
+
+
+	public void setHome(Home home) {
+		this.home = home;
+	}
+
+
+
 
 	public String getGiaphong() {
 		return giaphong;

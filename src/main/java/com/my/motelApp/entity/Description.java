@@ -1,5 +1,6 @@
 package com.my.motelApp.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,13 +17,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Description {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@JsonIgnore
 	private long id;
 	
 	@Column(name = "content")
 	private String content;
 
-	@ManyToOne
-	@JoinColumn(name = "info_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "info_id", nullable = true)
 	@JsonIgnore
 	private Info info;
 	
@@ -46,6 +48,7 @@ public class Description {
 		this.content = content;
 	}
 
+	
 	public Description() {
 
 	}

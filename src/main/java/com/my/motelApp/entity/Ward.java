@@ -11,17 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "ward")
 public class Ward {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@JsonIgnore
 	private long id;
 	
 	@Column(name = "name")
 	private String name;
 	
 	@OneToMany(mappedBy = "ward")
+	@JsonIgnore
 	private Set<Home> homes = new HashSet<>();
 
 	public String getName() {

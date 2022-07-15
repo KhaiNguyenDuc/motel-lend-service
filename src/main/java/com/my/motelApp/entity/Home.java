@@ -3,6 +3,7 @@ package com.my.motelApp.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Home {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@JsonIgnore
 	private long id;
 	
 	@Column(name = "address")
@@ -41,13 +43,12 @@ public class Home {
 	@OneToMany(mappedBy = "home")
 	private Set<Image> img_phong = new  HashSet<>();
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "info_id")
 	private Info info;
 	
-	@ManyToOne
-	@JoinColumn(name = "ward_id", nullable = false)
-	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ward_id", nullable = true)
 	private Ward ward;
 
 	public long getId() {
