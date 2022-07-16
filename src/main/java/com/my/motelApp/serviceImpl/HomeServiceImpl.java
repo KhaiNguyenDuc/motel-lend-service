@@ -1,15 +1,11 @@
 package com.my.motelApp.serviceImpl;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.my.motelApp.entity.Description;
 import com.my.motelApp.entity.Home;
-import com.my.motelApp.entity.Image;
-import com.my.motelApp.entity.Info;
 import com.my.motelApp.entity.Ward;
 import com.my.motelApp.repository.DescriptionRepository;
 import com.my.motelApp.repository.HomeRepository;
@@ -42,32 +38,13 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public List<Home> getHomesByWardName(String wardName) {
-		Ward ward = wardRepository.findByName(wardName);
-		return homeRepository.findHomeByWard(ward);
+	public List<Home> getHomesByWardId(Long wardId) {
+		Ward ward = wardRepository.findById(wardId).get();
+		return homeRepository.findByWard(ward);
 	}
 
-	@Override
-	public Home addHome(Home home) {
-		
-		
-		// save images
-		Set<Image> images = home.getImg_phong();
-		for (Image image : images) {
-			image.setHome(home);
-			imageRepository.save(image);
-		}
-		
-		// save description
-		Info info = home.getInfo();
-		Set<Description> descriptions = info.getDescriptions();
-		for (Description description : descriptions) {
-			description.setInfo(info);
-			descriptionRepository.save(description);
-		}
-		
-		homeRepository.save(home);
-		return null;
-	}
+
+
+	
 
 }

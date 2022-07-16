@@ -11,28 +11,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.my.motelApp.entity.Home;
+import com.my.motelApp.entity.Ward;
 import com.my.motelApp.service.HomeService;
+import com.my.motelApp.service.WardService;
 
 @RestController
-@RequestMapping("api/v1/homes")
-public class HomeController {
-	
+@RequestMapping("api/v1/wards")
+public class WardController {
+
 	@Autowired
 	HomeService homeService;
-	
+
+	@Autowired
+	WardService wardService;
+
 	@GetMapping
-	private List<Home> getAllHomes(){
-		return homeService.getAllHomes();
+	private List<Ward> getAllWards(){
+		return wardService.getAllWards();
 	}
 	
-	@GetMapping("/{ward_name}")
-	private List<Home> getHomesByWardName(
-			@PathVariable("ward_name") String wardName){
-		return homeService.getHomesByWardName(wardName);
+
+
+	@PostMapping("/homes")
+	private void addHomeByWardName(@RequestBody Home home) {
+		wardService.addHome(home);
 	}
-	
-	@PostMapping
-	private Home addHome(@RequestBody Home home) {
-		return homeService.addHome(home);
+
+	@GetMapping("/{ward_id}/homes/")
+	private List<Home> getHomesByWardId(@PathVariable("ward_id") Long wardId) {
+		return homeService.getHomesByWardId(wardId);
 	}
+
 }

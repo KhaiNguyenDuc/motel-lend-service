@@ -23,7 +23,7 @@ public class Image {
 	@Column(name = "link")
 	private String link;
 	
-	@ManyToOne(cascade =  CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "home_id", nullable = true)
 	@JsonIgnore
 	private Home home;

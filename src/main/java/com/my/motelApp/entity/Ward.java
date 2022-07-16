@@ -3,8 +3,10 @@ package com.my.motelApp.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,13 +20,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Ward {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	@JsonIgnore
 	private long id;
 	
 	@Column(name = "name")
 	private String name;
 	
-	@OneToMany(mappedBy = "ward")
+	@OneToMany(mappedBy = "ward",cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Home> homes = new HashSet<>();
 

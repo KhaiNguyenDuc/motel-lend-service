@@ -23,7 +23,7 @@ public class Description {
 	@Column(name = "content")
 	private String content;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "info_id", nullable = true)
 	@JsonIgnore
 	private Info info;

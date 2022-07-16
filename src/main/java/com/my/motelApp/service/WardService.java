@@ -5,13 +5,10 @@ import java.util.List;
 import com.my.motelApp.entity.Home;
 import com.my.motelApp.entity.Ward;
 
-public interface HomeService {
+public interface WardService {
 
-	List<Home> getAllHomes();
+	void addHome(Home home);
 
-
-	List<Home> getHomesByWardId(Long wardId);
-
-
+	List<Ward> getAllWards();
 
 }

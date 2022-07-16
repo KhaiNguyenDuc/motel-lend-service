@@ -3,6 +3,7 @@ package com.my.motelApp.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,7 +45,7 @@ public class Info {
 	@Column(name = "rac")
 	private String rac;
 	
-	@OneToMany(mappedBy = "info")
+	@OneToMany(mappedBy = "info",cascade = CascadeType.ALL)
 	@JsonProperty(value = "description")
 	private Set<Description> descriptions = new HashSet<>();
 
