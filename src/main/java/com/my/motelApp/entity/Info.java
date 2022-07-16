@@ -131,7 +131,10 @@ public class Info {
 	}
 
 	public void setDescription(Set<Description> descriptions) {
-		this.descriptions = descriptions;
+		for (Description description : descriptions) {
+			description.setInfo(this);
+			this.descriptions.add(description);
+		}
 	}
 
 	public Info(String giaphong, String dien, String nuoc, String xe, String wifi, String maylanh, String rac) {

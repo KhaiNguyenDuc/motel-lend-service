@@ -1,6 +1,5 @@
 package com.my.motelApp.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +23,7 @@ public class Image {
 	private String link;
 	
 	@ManyToOne
-	@JoinColumn(name = "home_id", nullable = true)
+	@JoinColumn(name = "home_id")
 	@JsonIgnore
 	private Home home;
 	

@@ -48,21 +48,21 @@ public class WardServiceImpl implements WardService {
 		home.setWard(ward);
 		homeRepository.save(home);
 		
-		// save images
-		Set<Image> images = home.getImg_phong();
-		for (Image image : images) {
-			image.setHome(home);
-			imageRepository.save(image);
-		}
-		
-		// save description
-		Info info = home.getInfo();
-		Set<Description> descriptions = info.getDescriptions();
-		for (Description description : descriptions) {
-			description.setInfo(info);
-			descriptionRepository.save(description);
-		}
-		
+//		// save images
+//		Set<Image> images = home.getImg_phong();
+//		for (Image image : images) {
+//			image.setHome(home);
+//			imageRepository.save(image);
+//		}
+//		
+//		// save description
+//		Info info = home.getInfo();
+//		Set<Description> descriptions = info.getDescriptions();
+//		for (Description description : descriptions) {
+//			description.setInfo(info);
+//			descriptionRepository.save(description);
+//		}
+//		
 	}
 
 	@Override

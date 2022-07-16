@@ -15,8 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "home")
 public class Home {
@@ -108,8 +106,11 @@ public class Home {
 
 	public void setImg_phong(Set<Image> img_phong) {
 		this.img_phong = img_phong;
+		for (Image image : img_phong) {
+			image.setHome(this);
+		}
 	}
-
+	
 	public Info getInfo() {
 		return info;
 	}
