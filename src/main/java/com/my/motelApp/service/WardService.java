@@ -7,12 +7,14 @@ import com.my.motelApp.entity.Ward;
 
 public interface WardService {
 
-	Home addHome(Home home);
+	Home addHome(Long wardId, Home home);
 
 	List<Ward> getAllWards();
 
 	Ward updateNameById(Long wardId, Ward wardRequest);
 
 	void delete(Long wardId);
+
+	Ward createWard(Ward ward);
 
 }

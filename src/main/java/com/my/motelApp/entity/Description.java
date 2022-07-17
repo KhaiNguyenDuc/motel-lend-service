@@ -1,6 +1,5 @@
 package com.my.motelApp.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -58,6 +57,10 @@ public class Description {
 		this.content = content;
 	}
 
+	public void convert(Description des) {
+		this.content = des.getContent();
+	}
+	
 	@Override
 	public String toString() {
 		return "Description [content=" + content + "]";

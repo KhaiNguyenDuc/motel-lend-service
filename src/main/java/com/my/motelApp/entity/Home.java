@@ -1,7 +1,7 @@
 package com.my.motelApp.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,6 +31,9 @@ public class Home {
 	@Column(name = "distance")
 	private float distance;
 	
+	@Column(name = "phone_chu")
+	private String phone_chu;
+	
 	@Column(name = "name_chu")
 	private String name_chu;
 	
@@ -38,7 +41,7 @@ public class Home {
 	private boolean state;
 	
 	@OneToMany(mappedBy = "home",cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Image> img_phong = new  HashSet<>();
+	private List<Image> img_phong = new ArrayList<>();
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "info_id")
@@ -48,10 +51,11 @@ public class Home {
 	@JoinColumn(name = "ward_id", nullable = true)
 	private Ward ward;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
+
 	public Ward getWard() {
 		return ward;
 	}
@@ -75,6 +79,16 @@ public class Home {
 	public void setMap(String map) {
 		this.map = map;
 	}
+
+	public String getPhone_chu() {
+		return phone_chu;
+	}
+
+
+	public void setPhone_chu(String phone_chu) {
+		this.phone_chu = phone_chu;
+	}
+
 
 	public float getDistance() {
 		return distance;
@@ -100,11 +114,11 @@ public class Home {
 		this.state = state;
 	}
 
-	public Set<Image> getImg_phong() {
+	public List<Image> getImg_phong() {
 		return img_phong;
 	}
 
-	public void setImg_phong(Set<Image> img_phong) {
+	public void setImg_phong(List<Image> img_phong) {
 		this.img_phong = img_phong;
 		for (Image image : img_phong) {
 			image.setHome(this);
@@ -121,6 +135,27 @@ public class Home {
 	
 	public Home() {
 		super();
+	}
+	
+	public void convert(Home home) {
+		this.address = home.getAddress();
+		this.distance = home.getDistance();
+		imagesConvert(home.getImg_phong());
+		this.info.convert(home.getInfo());
+		this.map = home.getMap();
+		this.name_chu = home.getName_chu();
+		this.state = home.isState();
+		this.ward = home.getWard();
+		this.phone_chu = home.getPhone_chu();		
+	}
+	public void imagesConvert(List<Image> images) {
+		if(images.size()!=this.getImg_phong().size()) {
+			return;
+		}
+		
+		for(int i=0;i<images.size();i++) {
+			this.img_phong.get(i).convert(images.get(i));
+		}
 	}
 	
 	public Home(String address, String map, float distance, String name_chu, boolean state, Info info) {

@@ -1,17 +1,18 @@
 package com.my.motelApp.serviceImpl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.my.motelApp.config.Constant;
 import com.my.motelApp.entity.Home;
 import com.my.motelApp.entity.Ward;
+import com.my.motelApp.exception.DataExistException;
 import com.my.motelApp.exception.DataNotFoundException;
-import com.my.motelApp.repository.DescriptionRepository;
 import com.my.motelApp.repository.HomeRepository;
-import com.my.motelApp.repository.ImageRepository;
 import com.my.motelApp.repository.WardRepository;
 import com.my.motelApp.service.WardService;
 
@@ -24,21 +25,12 @@ public class WardServiceImpl implements WardService {
 	@Autowired
 	private WardRepository wardRepository;
 	
-	@Autowired
-	private ImageRepository imageRepository;
-
-	
-	@Autowired
-	private DescriptionRepository descriptionRepository;
-	
 	@Override
-	public Home addHome(Home home) {
+	public Home addHome(Long wardId, Home home) {
 		
-		// Save Home
-		Long wardId = home.getWard().getId();
 		Optional<Ward> wardOpt = wardRepository.findById(wardId);
 		if(wardOpt.isEmpty()) {
-			throw new DataNotFoundException(messageNotFound(wardId));
+			throw new DataNotFoundException(Constant.messageNotFound(wardId));
 		}
 		Ward ward = wardOpt.get();
 		home.setWard(ward);
@@ -56,8 +48,12 @@ public class WardServiceImpl implements WardService {
 	public Ward updateNameById(Long wardId ,Ward wardRequest) {
 		
 		Optional<Ward> wardOtp = wardRepository.findById(wardId);
+		Ward verifyWard = wardRepository.findByName(wardRequest.getName());
 		if (wardOtp.isEmpty()) {
-			throw new DataNotFoundException(messageNotFound(wardId));
+			throw new DataNotFoundException(Constant.messageNotFound(wardId));
+		}
+		if (Objects.nonNull(verifyWard)) {
+			throw new DataExistException("Name already exist in database");
 		}
 		Ward wardData = wardOtp.get();
 		wardData.setName(wardRequest.getName());
@@ -70,12 +66,21 @@ public class WardServiceImpl implements WardService {
 			wardRepository.deleteById(wardId);
 		}
 		catch(Exception e){
-			throw new DataNotFoundException(messageNotFound(wardId));
+			throw new DataNotFoundException(Constant.messageNotFound(wardId));
 		}
 	}
 
-	public static String messageNotFound(Long wardId) {
-		return "This ward with id "+ wardId+ " not found";
+	
+
+	@Override
+	public Ward createWard(Ward ward) {
+		
+		Ward wardOpt = wardRepository.findByName(ward.getName());
+		if (!Objects.isNull(wardOpt)) {
+			throw new DataExistException("Data already exist in database");
+		}
+		Ward wardSaved = wardRepository.save(new Ward(ward.getName()));
+		return wardSaved;
 	}
 
 }

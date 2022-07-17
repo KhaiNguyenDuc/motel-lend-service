@@ -14,5 +14,4 @@ public interface HomeRepository extends JpaRepository<Home, Long>{
 	List<Home> findHomeByWard(Ward ward);
 
 	List<Home> findByWard(Ward ward);
-
 }

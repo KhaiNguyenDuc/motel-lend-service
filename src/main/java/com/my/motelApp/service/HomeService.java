@@ -3,14 +3,16 @@ package com.my.motelApp.service;
 import java.util.List;
 
 import com.my.motelApp.entity.Home;
-import com.my.motelApp.entity.Ward;
 
 public interface HomeService {
 
 	List<Home> getAllHomes();
 
+	void deleteById(Long homeId);
 
 	List<Home> getHomesByWardId(Long wardId);
+
+	Home updateById(Long homeId, Home homeRequest);
 
 
 
