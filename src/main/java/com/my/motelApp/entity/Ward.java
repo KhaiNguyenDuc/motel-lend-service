@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Ward {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	private long id;
+	private Long id;
 	
 	@Column(name = "name")
 	private String name;
@@ -45,7 +45,7 @@ public class Ward {
 		this.homes = homes;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

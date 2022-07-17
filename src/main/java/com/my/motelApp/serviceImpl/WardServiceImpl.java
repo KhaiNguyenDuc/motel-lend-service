@@ -2,15 +2,11 @@ package com.my.motelApp.serviceImpl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.my.motelApp.entity.Description;
 import com.my.motelApp.entity.Home;
-import com.my.motelApp.entity.Image;
-import com.my.motelApp.entity.Info;
 import com.my.motelApp.entity.Ward;
 import com.my.motelApp.exception.DataNotFoundException;
 import com.my.motelApp.repository.DescriptionRepository;
@@ -36,39 +32,50 @@ public class WardServiceImpl implements WardService {
 	private DescriptionRepository descriptionRepository;
 	
 	@Override
-	public void addHome(Home home) {
+	public Home addHome(Home home) {
 		
 		// Save Home
-		Optional<Ward> wardOpt = wardRepository.findById(home.getWard().getId());
+		Long wardId = home.getWard().getId();
+		Optional<Ward> wardOpt = wardRepository.findById(wardId);
 		if(wardOpt.isEmpty()) {
-			throw new DataNotFoundException("This ward with id "+home.getWard().getId()+
-					" not found");
+			throw new DataNotFoundException(messageNotFound(wardId));
 		}
 		Ward ward = wardOpt.get();
 		home.setWard(ward);
-		homeRepository.save(home);
+		return homeRepository.save(home);
 		
-//		// save images
-//		Set<Image> images = home.getImg_phong();
-//		for (Image image : images) {
-//			image.setHome(home);
-//			imageRepository.save(image);
-//		}
-//		
-//		// save description
-//		Info info = home.getInfo();
-//		Set<Description> descriptions = info.getDescriptions();
-//		for (Description description : descriptions) {
-//			description.setInfo(info);
-//			descriptionRepository.save(description);
-//		}
-//		
+
 	}
 
 	@Override
 	public List<Ward> getAllWards() {
 		return wardRepository.findAll();
 	}
-	
+
+	@Override
+	public Ward updateNameById(Long wardId ,Ward wardRequest) {
+		
+		Optional<Ward> wardOtp = wardRepository.findById(wardId);
+		if (wardOtp.isEmpty()) {
+			throw new DataNotFoundException(messageNotFound(wardId));
+		}
+		Ward wardData = wardOtp.get();
+		wardData.setName(wardRequest.getName());
+		return wardRepository.save(wardData);
+	}
+
+	@Override
+	public void delete(Long wardId) {
+		try {
+			wardRepository.deleteById(wardId);
+		}
+		catch(Exception e){
+			throw new DataNotFoundException(messageNotFound(wardId));
+		}
+	}
+
+	public static String messageNotFound(Long wardId) {
+		return "This ward with id "+ wardId+ " not found";
+	}
 
 }

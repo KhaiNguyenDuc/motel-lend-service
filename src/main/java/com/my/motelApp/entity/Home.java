@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class Home {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	private long id;
+	private Long id;
 	
 	@Column(name = "address")
 	private String address;

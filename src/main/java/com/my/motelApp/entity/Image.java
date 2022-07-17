@@ -17,7 +17,7 @@ public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	@JsonIgnore
-	private long id;
+	private Long id;
 	
 	@Column(name = "link")
 	private String link;
