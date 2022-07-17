@@ -18,7 +18,7 @@ public class Description {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	@JsonIgnore
-	private long id;
+	private Long id;
 	
 	@Column(name = "content")
 	private String content;
