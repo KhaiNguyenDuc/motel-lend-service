@@ -1,7 +1,7 @@
 package com.my.motelApp.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,9 +45,9 @@ public class Info {
 	@Column(name = "rac")
 	private String rac;
 	
-	@OneToMany(mappedBy = "info",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "info",cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonProperty(value = "description")
-	private Set<Description> descriptions = new HashSet<>();
+	private List<Description> descriptions = new ArrayList<>();
 
 	@OneToOne(mappedBy = "info")
 	@JsonIgnore
@@ -126,17 +126,46 @@ public class Info {
 		this.rac = rac;
 	}
 
-	public Set<Description> getDescriptions() {
+	public List<Description> getDescriptions() {
 		return descriptions;
 	}
 
-	public void setDescription(Set<Description> descriptions) {
+	
+	public void setDescription(List<Description> descriptions) {
 		for (Description description : descriptions) {
 			description.setInfo(this);
-			this.descriptions.add(description);
 		}
+		this.descriptions = descriptions;
 	}
 
+	public void addDescriptions(Description des) {
+		des.setInfo(this);
+		this.descriptions.add(des);
+	}
+	
+	public void removeDescriptions(Description description) {
+		this.descriptions.remove(description);
+		description.setInfo(null);
+	}
+	public void convert(Info info) {
+		this.giaphong = info.getGiaphong();
+		this.dien = info.getDien();
+		this.nuoc = info.getNuoc();
+		this.xe = info.getXe();
+		this.wifi = info.getWifi();
+		this.maylanh = info.getMaylanh();
+		this.rac = info.getRac();
+		this.desConvert(info.getDescriptions());
+	}
+	public void desConvert(List<Description> des) {
+		if(this.getDescriptions().size()!=des.size()) {
+			return;
+		}
+		
+		for(int i=0;i<des.size();i++) {
+			this.descriptions.get(i).convert(des.get(i));
+		}
+	}
 	public Info(String giaphong, String dien, String nuoc, String xe, String wifi, String maylanh, String rac) {
 		super();
 		this.giaphong = giaphong;

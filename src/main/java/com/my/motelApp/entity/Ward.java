@@ -1,12 +1,11 @@
 package com.my.motelApp.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +26,7 @@ public class Ward {
 	
 	@OneToMany(mappedBy = "ward",cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Set<Home> homes = new HashSet<>();
+	private List<Home> homes = new ArrayList<>();
 
 	public String getName() {
 		return name;
@@ -37,11 +36,11 @@ public class Ward {
 		this.name = name;
 	}
 
-	public Set<Home> getHomes() {
+	public List<Home> getHomes() {
 		return homes;
 	}
 
-	public void setHomes(Set<Home> homes) {
+	public void setHomes(List<Home> homes) {
 		this.homes = homes;
 	}
 

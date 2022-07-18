@@ -8,4 +8,6 @@ public interface DescriptionService{
 
 	List<Description> getAllDescriptions();
 
+	void deleteDesById(Long desId);
+
 }

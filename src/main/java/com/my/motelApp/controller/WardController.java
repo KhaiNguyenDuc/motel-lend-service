@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.my.motelApp.config.Constant;
 import com.my.motelApp.entity.Home;
 import com.my.motelApp.entity.Ward;
 import com.my.motelApp.service.HomeService;
@@ -30,34 +31,50 @@ public class WardController {
 	WardService wardService;
 
 	@GetMapping
-	private List<Ward> getAllWards(){
+	public List<Ward> getAllWards(){
 		return wardService.getAllWards();
 	}
 	
-	@PostMapping("/homes")
-	private ResponseEntity<Home> addHomeByWardName(@RequestBody Home homeRequest) {
-		
-		Home homeResponse = wardService.addHome(homeRequest);
-		return new ResponseEntity<>(homeResponse,HttpStatus.CREATED); 
+	@GetMapping("/{ward_id}")
+	public ResponseEntity<Ward> getWardByid(@PathVariable("ward_id") Long wardId) {
+		Ward ward = wardService.getWardById(wardId);
+		return new ResponseEntity<>(ward,HttpStatus.OK);
 	}
-
+	
 	@GetMapping("/{ward_id}/homes/")
-	private ResponseEntity<List<Home>> getHomesByWardId(@PathVariable("ward_id") Long wardId) {
+	public ResponseEntity<List<Home>> getHomesByWardId(@PathVariable("ward_id") Long wardId) {
 		List<Home> homeRespone = homeService.getHomesByWardId(wardId);
 		return new ResponseEntity<>(homeRespone,HttpStatus.OK);
 	}
 	
+	@PostMapping
+	public ResponseEntity<Ward> createWard(@RequestBody Ward wardRequest){
+		Ward wardResponse =  wardService.createWard(wardRequest);
+		return new ResponseEntity<>(wardResponse,HttpStatus.CREATED);
+		
+	}
+	
+	@PostMapping("/{ward_id}/homes")
+	public ResponseEntity<Home> addHomeByWardId(@PathVariable("ward_id") Long wardId, @RequestBody Home homeRequest) {
+		
+		Home homeResponse = wardService.addHome(wardId,homeRequest);
+		return new ResponseEntity<>(homeResponse,HttpStatus.CREATED); 
+	}
+	
+	
+	
 	@PutMapping("/{ward_id}")
-	private ResponseEntity<Ward> updateNameById(@PathVariable("ward_id") Long wardId,@RequestBody Ward wardRequest){
+	public ResponseEntity<Ward> updateNameById(@PathVariable("ward_id") Long wardId,@RequestBody Ward wardRequest){
 		Ward wardRespone = wardService.updateNameById(wardId, wardRequest);
 		return new ResponseEntity<>(wardRespone,HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{ward_id}")
-	private  ResponseEntity<String> deleteById(@PathVariable("ward_id") Long wardId){
-		String message = " Delete succesfully";
+	public ResponseEntity<String> deleteById(@PathVariable("ward_id") Long wardId){
 		wardService.delete(wardId);
-		return new ResponseEntity<>(message,HttpStatus.OK);
+		return new ResponseEntity<>(Constant.DELETE_SUCCESSFULLY,HttpStatus.OK);
 	}
+	
+	
 	
 }

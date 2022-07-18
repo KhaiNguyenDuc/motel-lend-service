@@ -55,6 +55,10 @@ public class Image {
 		// TODO Auto-generated constructor stub
 	}
 
+	public void convert(Image image) {
+		this.link = image.getLink();
+	}
+	
 	public Image(String link) {
 		super();
 		this.link = link;

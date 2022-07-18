@@ -17,6 +17,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		ErrorDetails errorDetails = new ErrorDetails(new Date(),
 				de.getMessage(),request.getDescription(false));
-		return new ResponseEntity<>(errorDetails,HttpStatus.OK);
+		return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(DataExistException.class)
+	public ResponseEntity<ErrorDetails> handleDataExistException(DataExistException de, WebRequest request){
+		
+		ErrorDetails errorDetails = new ErrorDetails(new Date(),
+				de.getMessage(),request.getDescription(false));
+		return new ResponseEntity<>(errorDetails,HttpStatus.CONFLICT);
 	}
 }
