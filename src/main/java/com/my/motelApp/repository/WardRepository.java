@@ -8,4 +8,6 @@ public interface WardRepository extends JpaRepository<Ward, Long> {
 
 	Ward findByName(String wardName);
 
+
+
 }

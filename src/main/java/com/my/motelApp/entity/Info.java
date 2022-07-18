@@ -45,7 +45,7 @@ public class Info {
 	@Column(name = "rac")
 	private String rac;
 	
-	@OneToMany(mappedBy = "info",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "info",cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonProperty(value = "description")
 	private List<Description> descriptions = new ArrayList<>();
 
@@ -130,13 +130,23 @@ public class Info {
 		return descriptions;
 	}
 
+	
 	public void setDescription(List<Description> descriptions) {
 		for (Description description : descriptions) {
 			description.setInfo(this);
-			this.descriptions.add(description);
 		}
+		this.descriptions = descriptions;
 	}
 
+	public void addDescriptions(Description des) {
+		des.setInfo(this);
+		this.descriptions.add(des);
+	}
+	
+	public void removeDescriptions(Description description) {
+		this.descriptions.remove(description);
+		description.setInfo(null);
+	}
 	public void convert(Info info) {
 		this.giaphong = info.getGiaphong();
 		this.dien = info.getDien();

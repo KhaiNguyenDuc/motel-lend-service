@@ -43,7 +43,7 @@ public class Home {
 	@OneToMany(mappedBy = "home",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Image> img_phong = new ArrayList<>();
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "info_id")
 	private Info info;
 	
@@ -133,6 +133,10 @@ public class Home {
 		this.info = info;
 	}
 	
+	public void removeInfo(Info info) {
+		info.setHome(null);
+		this.info = null;
+	}
 	public Home() {
 		super();
 	}

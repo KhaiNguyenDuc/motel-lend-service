@@ -83,4 +83,13 @@ public class WardServiceImpl implements WardService {
 		return wardSaved;
 	}
 
+	@Override
+	public Ward getWardById(Long wardId) {
+		Optional<Ward> wardOpt = wardRepository.findById(wardId);
+		if (Objects.isNull(wardOpt)) {
+			throw new DataNotFoundException(Constant.messageNotFound(wardId));
+		}
+		return wardOpt.get();
+	}
+
 }

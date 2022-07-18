@@ -17,4 +17,7 @@ public interface WardService {
 
 	Ward createWard(Ward ward);
 
+	Ward getWardById(Long wardId);
+
+
 }
