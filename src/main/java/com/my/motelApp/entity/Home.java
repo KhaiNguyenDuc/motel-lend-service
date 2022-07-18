@@ -153,8 +153,27 @@ public class Home {
 		this.phone_chu = home.getPhone_chu();		
 	}
 	public void imagesConvert(List<Image> images) {
-		if(images.size()!=this.getImg_phong().size()) {
-			return;
+		int r = this.getImg_phong().size() - images.size();
+		if(r > 0)
+		{
+			while(r > 0)
+			{
+				Image temp = this.getImg_phong().get(0);
+				this.img_phong.remove(temp);
+				temp.setHome(null);
+				r = r -1;
+			}
+		}
+		if(r < 0)
+		{
+			r = -r;
+			while(r > 0)
+			{
+				Image temp = new Image();
+				this.img_phong.add(temp);
+				temp.setHome(this);
+				r = r -1;
+			}
 		}
 		
 		for(int i=0;i<images.size();i++) {

@@ -57,7 +57,6 @@ public class InfoServiceImpl implements InfoService {
 				throw new DataExistException("This description already exist");
 			}
 		}
-		
 		info.addDescriptions(desRequest);
 		return infoRepository.save(info);
 	}
@@ -71,17 +70,11 @@ public class InfoServiceImpl implements InfoService {
 		Info info = infoOpt.get();
 		
 		List<Description> description = info.getDescriptions();
-		Integer length = description.size();
-		int i = 0;
-		while(length >0) {
-			System.out.println(description.size());
-			System.out.println(i);
-			System.out.println(description.get(i));
-			info.removeDescriptions(description.get(i));
-			length = length - 1;
+		while(info.getDescriptions().size() > 0)
+		{
+			info.removeDescriptions(description.get(0));
 		}
 		descriptionRepository.deleteAll(description);
-		 
 	}
 
 

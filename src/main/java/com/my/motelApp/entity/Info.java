@@ -158,10 +158,29 @@ public class Info {
 		this.desConvert(info.getDescriptions());
 	}
 	public void desConvert(List<Description> des) {
-		if(this.getDescriptions().size()!=des.size()) {
-			return;
+		int r = this.getDescriptions().size() - des.size();
+		if(r > 0)
+		{
+			while(r > 0)
+			{
+				Description temp = this.getDescriptions().get(0);
+				this.descriptions.remove(temp);
+				temp.setInfo(null);
+				r = r -1;
+			}
 		}
-		
+		if(r < 0)
+		{
+			r = -r;
+			while(r > 0)
+			{
+				Description temp = new Description();
+				this.descriptions.add(temp);
+				temp.setInfo(this);
+				r = r -1;
+			}
+		}
+
 		for(int i=0;i<des.size();i++) {
 			this.descriptions.get(i).convert(des.get(i));
 		}

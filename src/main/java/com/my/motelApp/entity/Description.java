@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Description {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	@JsonIgnore
 	private Long id;
 	
 	@Column(name = "content")
@@ -65,6 +64,4 @@ public class Description {
 	public String toString() {
 		return "Description [content=" + content + "]";
 	}
-	
-	
 }

@@ -29,8 +29,7 @@ public class DescriptionServiceImpl implements DescriptionService{
 		if(desOpt.isEmpty()) {
 			throw new DataNotFoundException(Constant.messageNotFound(desId));
 		}
-		// delete a father
-		
+		descriptionRepository.delete(desOpt.get());		
 	}
 
 	
