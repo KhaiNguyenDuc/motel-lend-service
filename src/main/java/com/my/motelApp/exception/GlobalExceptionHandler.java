@@ -13,18 +13,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(DataNotFoundException.class)
-	public ResponseEntity<ErrorDetails> handleDataNotFoundException(DataNotFoundException de, WebRequest request){
+	public ResponseEntity<ErrorDetails> handleDataNotFoundException(DataNotFoundException e, WebRequest request){
 		
 		ErrorDetails errorDetails = new ErrorDetails(new Date(),
-				de.getMessage(),request.getDescription(false));
+				e.getMessage(),request.getDescription(false));
 		return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(DataExistException.class)
-	public ResponseEntity<ErrorDetails> handleDataExistException(DataExistException de, WebRequest request){
+	public ResponseEntity<ErrorDetails> handleDataExistException(DataExistException e, WebRequest request){
 		
 		ErrorDetails errorDetails = new ErrorDetails(new Date(),
-				de.getMessage(),request.getDescription(false));
+				e.getMessage(),request.getDescription(false));
 		return new ResponseEntity<>(errorDetails,HttpStatus.CONFLICT);
+	}
+	
+	@ExceptionHandler(AccessDenyException.class)
+	public ResponseEntity<ErrorDetails> accessDenyException(AccessDenyException e, WebRequest request){
+		
+		ErrorDetails errorDetails = new ErrorDetails(new Date(),
+				e.getMessage(),request.getDescription(false));
+		return new ResponseEntity<>(errorDetails,HttpStatus.UNAUTHORIZED);
 	}
 }
