@@ -57,6 +57,11 @@ public class Ward {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "Ward [id=" + id + ", name=" + name + ", homes=" + homes + "]";
+	}
 	
 	
 	

@@ -45,7 +45,7 @@ public class HomeController {
 	}
 
 	@DeleteMapping("/{home_id}/infos")
-	public ResponseEntity<String> deleteInfoById(@PathVariable("home_id") Long homeId) {
+	public ResponseEntity<String> deleteInfosById(@PathVariable("home_id") Long homeId) {
 		homeService.deleteInfoById(homeId);
 		return new ResponseEntity<>(Constant.DELETE_SUCCESSFULLY, HttpStatus.OK);
 	}
@@ -61,8 +61,6 @@ public class HomeController {
 		homeService.deleteById(homeId);
 		return new ResponseEntity<>(Constant.DELETE_SUCCESSFULLY, HttpStatus.OK);
 	}
-
-	
 
 	@PutMapping("/{home_id}")
 	public ResponseEntity<Home> updateHomeById(@PathVariable("home_id") Long homeId, @RequestBody Home homeRequest) {

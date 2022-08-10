@@ -9,5 +9,5 @@ public class MotelLendServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MotelLendServiceApplication.class, args);
 	}
-
+	// error on create user
 }
