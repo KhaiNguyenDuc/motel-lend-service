@@ -54,7 +54,7 @@ public class RoleController {
 			@PathVariable("role_id") Long roleId,
 			@RequestBody Role roleRequest){
 		Role roleResponse = roleService.updateRoleById(roleId,roleRequest);
-		return new ResponseEntity<>(roleRequest,HttpStatus.OK);
+		return new ResponseEntity<>(roleResponse,HttpStatus.OK);
 	}
 	
 	

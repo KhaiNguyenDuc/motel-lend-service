@@ -48,7 +48,7 @@ public class WardController {
 		return new ResponseEntity<>(ward,HttpStatus.OK);
 	}
 	
-	@GetMapping("/{ward_id}/homes/")
+	@GetMapping("/{ward_id}/homes")
 	public ResponseEntity<List<Home>> getHomesByWardId(@PathVariable("ward_id") Long wardId) {
 		List<Home> homeRespone = homeService.getHomesByWardId(wardId);
 		return new ResponseEntity<>(homeRespone,HttpStatus.OK);
