@@ -51,5 +51,4 @@ public class InfoController {
 		infoService.deleteAllDescriptionById(infoId);
 		return new ResponseEntity<>(Constant.DELETE_SUCCESSFULLY,HttpStatus.CREATED);
 	}
-	// delete descriptions
 }

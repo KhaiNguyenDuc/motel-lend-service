@@ -14,7 +14,7 @@ public interface UserService {
 
 	List<UserResponse> getAllUser();
 
-	ApiResponse createUser(UserRequest userRequest, UserPrincipal currentUser);
+	ApiResponse createUser(UserRequest userRequest);
 
 	UserResponse updateUserByUsername(String username, UserRequest userRequest, UserPrincipal currentUser);
 

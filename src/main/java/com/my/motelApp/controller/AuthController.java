@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.my.motelApp.dto.ApiResponse;
 import com.my.motelApp.dto.JwtTokenResponse;
 import com.my.motelApp.dto.LoginRequest;
+import com.my.motelApp.dto.UserRequest;
 import com.my.motelApp.security.JwtTokenProvider;
+import com.my.motelApp.service.UserService;
 
 @RestController
 @RequestMapping("api/v1/auth")
@@ -26,6 +29,9 @@ public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
 	
+	@Autowired
+	UserService userService;
+	
 	@PostMapping("/sigin")
 	public ResponseEntity<JwtTokenResponse> authenticateUser(
 			@RequestBody LoginRequest LoginRequest){
@@ -36,6 +42,16 @@ public class AuthController {
 		SecurityContextHolder.getContext().setAuthentication(authentication); 
 		String jwt = tokenProvider.generateToken(authentication);
 		return new ResponseEntity<>(new JwtTokenResponse(jwt,"jwt"),HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/signup")
+	public ResponseEntity<ApiResponse> registerUser(
+			@RequestBody UserRequest userRequest){
+		
+		ApiResponse response = userService.createUser(userRequest);
+		
+		return new ResponseEntity<>(response,HttpStatus.CREATED);
 		
 	}
 }

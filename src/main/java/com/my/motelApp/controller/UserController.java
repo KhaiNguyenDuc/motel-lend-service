@@ -43,17 +43,6 @@ public class UserController {
 		return new ResponseEntity<>(usersResponse,HttpStatus.OK);
 	}
 	
-
-	@PostMapping
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<ApiResponse> createUser(
-			@RequestBody UserRequest userRequest,
-			@CurrentUser UserPrincipal currentUser){
-		ApiResponse response =  userService.createUser(userRequest,currentUser);
-		return new ResponseEntity<>(response, HttpStatus.CREATED);
-	}
-	
-	
 	@PutMapping("/{username}")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<UserResponse> updateUserByUsername(

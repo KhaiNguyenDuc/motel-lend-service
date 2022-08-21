@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ApiResponse createUser(UserRequest userRequest,UserPrincipal currentUser) {
+	public ApiResponse createUser(UserRequest userRequest) {
 		
 		String username = userRequest.getUsername();
 		
