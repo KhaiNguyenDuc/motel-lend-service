@@ -20,10 +20,12 @@ public class ApplicationSecurityConfig {
 		.csrf()
 			.disable()
 		.authorizeRequests()
-		.antMatchers("/api/v1/auth/**")
-			.permitAll()
+//		.antMatchers("/api/v1/auth/**")
+//			.permitAll()
+//		.anyRequest()
+//			.authenticated()
 		.anyRequest()
-			.authenticated()
+			.permitAll()
 		.and()
 			.httpBasic();
 	return http.build();

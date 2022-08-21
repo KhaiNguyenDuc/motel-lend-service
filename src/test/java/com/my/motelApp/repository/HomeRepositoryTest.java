@@ -73,9 +73,9 @@ class HomeRepositoryTest {
 	@Order(2)
 	void testCreateUser() {
 		User userK = new User(); 
-		userK.setUsername("khai");
-		userK.setPassword(passwordEncoder.encode("123"));
-		userK.setEmail("k@gmail.com");
+		userK.setUsername("admin");
+		userK.setPassword(passwordEncoder.encode("admin"));
+		userK.setEmail("duckhailinux@gmail.com");
 		userK.setPhoneNumber("Phone number");
 		userK.setEnabled(Boolean.TRUE);
 		
@@ -84,15 +84,15 @@ class HomeRepositoryTest {
 		
 		userK.setRoles(Arrays.asList(role));
 		
-		log.info("Before create user");
+	
 		userRepository.save(userK);
-		log.info("Create user");
+
 		
 		// another user
 		User userKiet = new User(); 
-		userKiet.setUsername("kiet");
-		userKiet.setPassword(passwordEncoder.encode("123"));
-		userKiet.setEmail("kiet@gmail.com");
+		userKiet.setUsername("sub_admin");
+		userKiet.setPassword(passwordEncoder.encode("sub_admin"));
+		userKiet.setEmail("sub_admin@gmail.com");
 		userKiet.setPhoneNumber("Phone number");
 		userKiet.setEnabled(Boolean.TRUE);
 		

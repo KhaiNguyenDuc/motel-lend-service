@@ -32,7 +32,7 @@ public class AuthController {
 	@Autowired
 	UserService userService;
 	
-	@PostMapping("/sigin")
+	@PostMapping("/signin")
 	public ResponseEntity<JwtTokenResponse> authenticateUser(
 			@RequestBody LoginRequest LoginRequest){
 		
