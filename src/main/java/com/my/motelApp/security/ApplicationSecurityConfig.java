@@ -2,6 +2,7 @@ package com.my.motelApp.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,9 +21,11 @@ public class ApplicationSecurityConfig {
 		.csrf()
 			.disable()
 		.authorizeRequests()
-		.antMatchers("api/v1/users/**")
+		.antMatchers("/api/v1/users/**")
 			.authenticated()
-		.antMatchers("api/v1/roles/**")
+		.antMatchers("/api/v1/roles/**")
+			.authenticated()
+		.antMatchers(HttpMethod.POST, "/api/v1/**")
 			.authenticated()
 		.anyRequest()
 			.permitAll()
