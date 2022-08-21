@@ -30,8 +30,8 @@ public class HomeController {
 
 	@GetMapping()
 	public ResponseEntity<PageResponse<Home>> getAllHomes(
-			@RequestParam(value = "page") Integer page,
-			@RequestParam(value = "size") Integer size) {
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 		PageResponse<Home> homeResponse = homeService.getAllHomes(page,size);
 		return new ResponseEntity<>(homeResponse, HttpStatus.OK);
 	}

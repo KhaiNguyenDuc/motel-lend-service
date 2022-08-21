@@ -34,8 +34,8 @@ public class WardController {
 
 	@GetMapping
 	public ResponseEntity<PageResponse<Ward>> getAllWards(
-			@RequestParam("page") Integer page,
-			@RequestParam("size") Integer size){
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size){
 		
 		PageResponse<Ward> wardsResponse = wardService.getAllWards(page,size);
 		
