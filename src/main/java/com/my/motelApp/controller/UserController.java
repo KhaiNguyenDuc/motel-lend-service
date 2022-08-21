@@ -32,12 +32,14 @@ public class UserController {
 	UserService userService;
 	
 	@GetMapping("/{username}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<UserResponse> getUserByUsername(@PathVariable("username") String username){
 		UserResponse userResponse = userService.getUserByUsername(username);
 		return new ResponseEntity<>(userResponse,HttpStatus.OK);
 	}
 	
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<UserResponse>> getAllUser(){
 		List<UserResponse> usersResponse = userService.getAllUser();
 		return new ResponseEntity<>(usersResponse,HttpStatus.OK);
