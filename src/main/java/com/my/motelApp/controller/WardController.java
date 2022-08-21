@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.my.motelApp.config.Constant;
+import com.my.motelApp.dto.PageResponse;
 import com.my.motelApp.entity.Home;
 import com.my.motelApp.entity.Ward;
 import com.my.motelApp.service.HomeService;
@@ -31,8 +33,13 @@ public class WardController {
 	WardService wardService;
 
 	@GetMapping
-	public List<Ward> getAllWards(){
-		return wardService.getAllWards();
+	public ResponseEntity<PageResponse<Ward>> getAllWards(
+			@RequestParam("page") Integer page,
+			@RequestParam("size") Integer size){
+		
+		PageResponse<Ward> wardsResponse = wardService.getAllWards(page,size);
+		
+		return new ResponseEntity<>(wardsResponse,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{ward_id}")

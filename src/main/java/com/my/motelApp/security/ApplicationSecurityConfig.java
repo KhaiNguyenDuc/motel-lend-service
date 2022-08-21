@@ -17,18 +17,27 @@ public class ApplicationSecurityConfig {
 	@Bean
 	 SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-			.csrf().disable()
-			.authorizeRequests()
-			.anyRequest().authenticated()
-			.and()
+		.csrf()
+			.disable()
+		.authorizeRequests()
+		.antMatchers("/api/v1/auth/**")
+			.permitAll()
+		.anyRequest()
+			.authenticated()
+		.and()
 			.httpBasic();
-		return http.build();
+	return http.build();
 	}
 
    @Bean
    AuthenticationManager authenticationManager(
 		   AuthenticationConfiguration auth) throws Exception {
 	   return auth.getAuthenticationManager();
+   }
+   
+   @Bean
+   PasswordEncoder passwordEncoder() {
+	   return new BCryptPasswordEncoder();
    }
 	
 	

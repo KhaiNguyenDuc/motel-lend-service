@@ -18,7 +18,7 @@ public class UserPrincipal implements UserDetails{
 	 */
 	private static final long serialVersionUID = 1320585925823790211L;
 
-	private String id;
+	private Long id;
 	private String username;
 	private String email;
 	private String password;
@@ -27,6 +27,16 @@ public class UserPrincipal implements UserDetails{
 	private boolean enabled;
 	private List<GrantedAuthority> roles = new ArrayList<>();
 	
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.roles;
@@ -62,8 +72,9 @@ public class UserPrincipal implements UserDetails{
 		return this.enabled;
 	}
 
-	public UserPrincipal(String username, String email, String password, String phoneNumber, boolean enabled,
+	public UserPrincipal(Long id, String username, String email, String password, String phoneNumber, boolean enabled,
 			List<GrantedAuthority> roles) {
+		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -80,15 +91,13 @@ public class UserPrincipal implements UserDetails{
 		}
 		
 		return new UserPrincipal(
+				user.getId(),
 				user.getUsername(),
 				user.getEmail(),
-				PasswordEncoderConfig
-						.passwordEncoder()
-						.encode(user.getPassword()),
+				user.getPassword(),
 				user.getPhoneNumber(),
 				user.isEnabled(),
-				roles
-				);
+				roles);
 		
 	
 	}

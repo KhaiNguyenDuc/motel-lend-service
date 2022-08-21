@@ -6,23 +6,29 @@ import org.junit.jupiter.api.ClassOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestClassOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
 import com.my.motelApp.entity.Role;
 import com.my.motelApp.entity.RoleName;
 import com.my.motelApp.entity.User;
 
-@DataJpaTest
+@SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 @TestClassOrder(OrderAnnotation.class)
 
 class HomeRepositoryTest {
 
+	Logger log = LoggerFactory.getLogger(HomeRepositoryTest.class);
+	
 	@Autowired
 	private HomeRepository homeRepository;
 	
@@ -44,6 +50,9 @@ class HomeRepositoryTest {
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	
 	@Test
 	@Order(1)
@@ -64,9 +73,8 @@ class HomeRepositoryTest {
 	@Order(2)
 	void testCreateUser() {
 		User userK = new User(); 
-		userK.setId(1L);
 		userK.setUsername("khai");
-		userK.setPassword("123");
+		userK.setPassword(passwordEncoder.encode("123"));
 		userK.setEmail("k@gmail.com");
 		userK.setPhoneNumber("Phone number");
 		userK.setEnabled(Boolean.TRUE);
@@ -76,12 +84,14 @@ class HomeRepositoryTest {
 		
 		userK.setRoles(Arrays.asList(role));
 		
+		log.info("Before create user");
 		userRepository.save(userK);
+		log.info("Create user");
+		
 		// another user
 		User userKiet = new User(); 
-		userKiet.setId(2L);
 		userKiet.setUsername("kiet");
-		userKiet.setPassword("123");
+		userKiet.setPassword(passwordEncoder.encode("123"));
 		userKiet.setEmail("kiet@gmail.com");
 		userKiet.setPhoneNumber("Phone number");
 		userKiet.setEnabled(Boolean.TRUE);

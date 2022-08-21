@@ -1,15 +1,12 @@
 package com.my.motelApp.service;
 
-import java.util.List;
-
+import com.my.motelApp.dto.PageResponse;
 import com.my.motelApp.entity.Home;
 import com.my.motelApp.entity.Ward;
 
 public interface WardService {
 
 	Home addHome(Long wardId, Home home);
-
-	List<Ward> getAllWards();
 
 	Ward updateNameById(Long wardId, Ward wardRequest);
 
@@ -18,6 +15,8 @@ public interface WardService {
 	Ward createWard(Ward ward);
 
 	Ward getWardById(Long wardId);
+
+	PageResponse<Ward> getAllWards(Integer page, Integer size);
 
 
 }

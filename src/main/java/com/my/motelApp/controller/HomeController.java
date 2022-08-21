@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.my.motelApp.config.Constant;
+import com.my.motelApp.dto.PageResponse;
 import com.my.motelApp.entity.Home;
 import com.my.motelApp.entity.Image;
 import com.my.motelApp.entity.Info;
@@ -26,9 +28,11 @@ public class HomeController {
 	@Autowired
 	HomeService homeService;
 
-	@GetMapping
-	public ResponseEntity<List<Home>> getAllHomes() {
-		List<Home> homeResponse = homeService.getAllHomes();
+	@GetMapping()
+	public ResponseEntity<PageResponse<Home>> getAllHomes(
+			@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size) {
+		PageResponse<Home> homeResponse = homeService.getAllHomes(page,size);
 		return new ResponseEntity<>(homeResponse, HttpStatus.OK);
 	}
 

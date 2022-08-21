@@ -1,13 +1,16 @@
 package com.my.motelApp.serviceImpl;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.my.motelApp.config.Constant;
+import com.my.motelApp.dto.PageResponse;
 import com.my.motelApp.entity.Home;
 import com.my.motelApp.entity.Ward;
 import com.my.motelApp.exception.DataExistException;
@@ -40,8 +43,21 @@ public class WardServiceImpl implements WardService {
 	}
 
 	@Override
-	public List<Ward> getAllWards() {
-		return wardRepository.findAll();
+	public PageResponse<Ward> getAllWards(Integer page, Integer size) {
+		
+		Pageable pageable = PageRequest.of(page, size);
+		
+		Page<Ward> wards =  wardRepository.findAll(pageable);
+		
+		PageResponse<Ward> pageResponse = new PageResponse<>();
+		pageResponse.setContent(wards.getContent());
+		pageResponse.setPage(page);
+		pageResponse.setSize(size);
+		pageResponse.setTotalElements(wards.getTotalElements());
+		pageResponse.setTotalPages(wards.getTotalPages());
+		pageResponse.setLast(wards.isLast());
+		
+		return pageResponse;
 	}
 
 	@Override

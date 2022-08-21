@@ -3,10 +3,16 @@ package com.my.motelApp.serviceImpl;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.my.motelApp.config.Constant;
+import com.my.motelApp.dto.PageResponse;
 import com.my.motelApp.entity.Home;
 import com.my.motelApp.entity.Image;
 import com.my.motelApp.entity.Info;
@@ -20,6 +26,8 @@ import com.my.motelApp.service.HomeService;
 @Service
 public class HomeServiceImpl implements HomeService {
 
+	Logger log = LoggerFactory.getLogger(HomeServiceImpl.class);
+	
 	@Autowired
 	private HomeRepository homeRepository;
 
@@ -31,8 +39,21 @@ public class HomeServiceImpl implements HomeService {
 	
 	
 	@Override
-	public List<Home> getAllHomes() {
-		return homeRepository.findAll();
+	public PageResponse<Home> getAllHomes(Integer page, Integer size) {
+		
+		log.info("page: "+page+" size: "+size);
+		Pageable pageable = PageRequest.of(page, size);
+		
+		Page<Home> house =  homeRepository.findAll(pageable);
+		
+		PageResponse<Home> pageResponse = new PageResponse<>();
+		pageResponse.setPage(page);
+		pageResponse.setSize(size);
+		pageResponse.setTotalElements(house.getTotalElements());
+		pageResponse.setTotalPages(house.getTotalPages());
+		pageResponse.setContent(house.getContent());
+		pageResponse.setLast(house.isLast());
+		return pageResponse;
 	}
 
 	@Override

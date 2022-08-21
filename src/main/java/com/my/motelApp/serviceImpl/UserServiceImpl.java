@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.my.motelApp.dto.ApiResponse;
@@ -35,6 +36,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	ModelMapper modelMapper;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Override
 	public UserResponse getUserByUsername(String username) {
@@ -64,6 +68,7 @@ public class UserServiceImpl implements UserService {
 		
 		User userSaved = modelMapper.map(userRequest, User.class);
 		userSaved.setRoles(Arrays.asList(role));
+		userSaved.setPassword(passwordEncoder.encode(userSaved.getPassword()));
 		userRepository.save(userSaved);
 		return new ApiResponse("Create successfully", HttpStatus.CREATED);
 	}
